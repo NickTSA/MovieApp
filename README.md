@@ -1,2 +1,0 @@
-# VidlyApp
-Created with CodeSandbox

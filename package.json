@@ -1,0 +1,25 @@
+{
+  "name": "vidly-app",
+  "version": "1.0.0",
+  "description": "Reference the Bootstrap CSS and JS from package.json and import",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "axios": "0.19.1",
+    "bootstrap": "4.4.1",
+    "jquery": "^3.3.1",
+    "lodash": "4.17.15",
+    "popper.js": "^1.14.3",
+    "prop-types": "15.7.2",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-scripts": "3.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
