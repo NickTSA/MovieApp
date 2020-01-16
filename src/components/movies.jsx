@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { getMovies } from "../services/fakeMovieService";
+// import { getMovies } from "../services/fakeMovieService";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import Like from "./common/like";
 import { paginate } from "../utilis/paginate";
 import { getGenres } from "../services/fakeGenreService";
+import { getTrendingMovies } from "../utilis/Api";
 
 function Movies(props) {
   const [movies, setMovies] = useState([]);
@@ -22,8 +23,10 @@ function Movies(props) {
     const allGenres = [{ name: "All Genres" }, ...getGenres()];
 
     setGenres(allGenres);
-    setMovies(getMovies());
+    getTrendingMovies().then(res => setMovies(res));
   }, []);
+
+  console.log(movies);
 
   function handleLike(movie) {
     const newMovies = [...movies];
