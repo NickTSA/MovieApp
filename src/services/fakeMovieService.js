@@ -1,4 +1,5 @@
 import * as genresAPI from "./fakeGenreService";
+import { getTrendingMovies } from "../utilis/Api";
 
 const movies = [
   {
@@ -130,6 +131,20 @@ const movies = [
     dailyRentalRate: 3.5
   }
 ];
+
+getTrendingMovies().then(res => {
+  const allMovies = res;
+
+  let trendingMovies = allMovies.results.map(m => ({
+    title: m.title || m.name,
+    _id: m.id,
+    genre: m.genre_ids,
+    numberInStock: 1,
+    dailyRentalRate: 1,
+    publishDate: m.release_date
+  }));
+  return trendingMovies;
+});
 
 export function getMovies() {
   return movies;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getTrendingMovies() {
+export async function getTrendingMovies() {
   return axios
     .get(
       `https://api.themoviedb.org/3/trending/all/week?api_key=${

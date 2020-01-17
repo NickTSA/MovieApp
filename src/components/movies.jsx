@@ -4,6 +4,7 @@ import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import Like from "./common/like";
 import { paginate } from "../utilis/paginate";
+// import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import { getTrendingMovies } from "../utilis/Api";
 
@@ -23,10 +24,22 @@ function Movies(props) {
     const allGenres = [{ name: "All Genres" }, ...getGenres()];
 
     setGenres(allGenres);
-    getTrendingMovies().then(res => setMovies(res));
-  }, []);
+    getTrendingMovies()
+      .then(res => {
+        const allMovies = res;
 
-  console.log(movies);
+        let trendingMovies = allMovies.results.map(m => ({
+          title: m.title || m.name,
+          _id: m.id,
+          genre: m.genre_ids,
+          numberInStock: 1,
+          dailyRentalRate: 1,
+          publishDate: m.release_date
+        }));
+        return trendingMovies;
+      })
+      .then(res => setMovies(res));
+  }, []);
 
   function handleLike(movie) {
     const newMovies = [...movies];
