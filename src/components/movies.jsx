@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 // import { getMovies } from "../services/fakeMovieService";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
-import Like from "./common/like";
 import { paginate } from "../utilis/paginate";
 // import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import { getTrendingMovies } from "../utilis/Api";
+import Movie from "./movie";
 
 function Movies(props) {
   const [movies, setMovies] = useState([]);
-  const [pageSize] = useState(4);
+  const [pageSize] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState();
@@ -26,20 +26,20 @@ function Movies(props) {
     setGenres(allGenres);
     getTrendingMovies()
       .then(res => {
-        const allMovies = res;
-
-        let trendingMovies = allMovies.results.map(m => ({
+        return res.results.map(m => ({
           title: m.title || m.name,
           _id: m.id,
           genre: m.genre_ids,
           numberInStock: 1,
           dailyRentalRate: 1,
-          publishDate: m.release_date
+          publishDate: m.release_date,
+          posterPath: m.poster_path
         }));
-        return trendingMovies;
       })
       .then(res => setMovies(res));
   }, []);
+
+  console.log(movies);
 
   function handleLike(movie) {
     const newMovies = [...movies];
@@ -68,7 +68,7 @@ function Movies(props) {
 
   return (
     <div className="row">
-      <div className="col-3 d-none d-md-block">
+      <div className="px-4">
         <ListGroup
           selectedItem={selectedGenre}
           onItemSelect={handleGenreSelect}
@@ -77,20 +77,26 @@ function Movies(props) {
       </div>
       <div className="col">
         <p>Showing {filtered.length} movies in the database.</p>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Genre</th>
-              <th>Stock</th>
-              <th>Rate</th>
-              <th> </th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>
-            {pagMovies.map(movie => (
-              <tr key={movie._id}>
+        <div className="row">
+          {pagMovies.map(movie => (
+            <Movie key={movie._id} movie={movie} />
+          ))}
+        </div>
+        <Pagination
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
+          itemsCount={filtered.length}
+          pageSize={pageSize}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default Movies;
+
+/*
+<tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
@@ -110,18 +116,4 @@ function Movies(props) {
                   </button>
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <Pagination
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-          itemsCount={filtered.length}
-          pageSize={pageSize}
-        />
-      </div>
-    </div>
-  );
-}
-
-export default Movies;
+              */

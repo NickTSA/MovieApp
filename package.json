@@ -1,7 +1,7 @@
 {
-  "name": "vidly-app",
+  "name": "movieapp",
   "version": "1.0.0",
-  "description": "Reference the Bootstrap CSS and JS from package.json and import",
+  "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

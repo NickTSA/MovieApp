@@ -10,7 +10,7 @@ function ListGroup(props) {
   } = props;
 
   return (
-    <ul className="list-group">
+    <ul className="list-group d-none d-md-block">
       {items.map(item => (
         <li
           onClick={() => onItemSelect(item)}
