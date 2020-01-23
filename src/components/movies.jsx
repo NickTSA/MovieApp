@@ -1,61 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import { getMovies } from "../services/fakeMovieService";
 import ListGroup from "./common/listGroup";
-import Pagination from "./common/pagination";
-import { paginate } from "../utilis/paginate";
-// import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
-import { getTrendingMovies } from "../utilis/Api";
 import Movie from "./movie";
 
 function Movies(props) {
-  const [movies, setMovies] = useState([]);
-  const [pageSize] = useState(20);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState();
-
-  function handleDelete(movie) {
-    const newMovies = movies.filter(m => m._id !== movie._id);
-    setMovies(newMovies);
-  }
-
-  useEffect(() => {
-    const allGenres = [{ name: "All Genres" }, ...getGenres()];
-
-    setGenres(allGenres);
-    getTrendingMovies()
-      .then(res => {
-        return res.results.map(m => ({
-          title: m.title || m.name,
-          _id: m.id,
-          genre: m.genre_ids,
-          numberInStock: 1,
-          dailyRentalRate: 1,
-          publishDate: m.release_date,
-          posterPath: m.poster_path
-        }));
-      })
-      .then(res => setMovies(res));
-  }, []);
-
-  function handlePageChange(page) {
-    setCurrentPage(page);
-  }
-
-  function handleGenreSelect(genre) {
-    setSelectedGenre(genre);
-    setCurrentPage(1);
-  }
+  const { movies, genres, pagMovies } = props;
 
   if (movies.length === 0) return <p>There are no movies in the database.</p>;
-
-  const filtered =
-    selectedGenre && selectedGenre._id
-      ? movies.filter(m => m.genre._id === selectedGenre._id)
-      : movies;
-
-  const pagMovies = paginate(filtered, currentPage, pageSize);
 
   return (
     <div className="row d-flex justify-content-center">
@@ -90,6 +40,12 @@ Delete
 </button>
 </td>
 </tr>
+
+
+  function handleDelete(movie) {
+    const newMovies = movies.filter(m => m._id !== movie._id);
+    setMovies(newMovies);
+  }
 
 
 <div className="px-4">
