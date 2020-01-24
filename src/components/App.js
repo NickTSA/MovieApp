@@ -4,6 +4,7 @@ import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./common/pagination";
 import { paginate } from "../utilis/paginate";
 import Movies from "./movies";
+import NavBar from "./navBar";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -11,6 +12,7 @@ function App() {
   const [pageSize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState();
+  const [heading, setHeading] = useState("Top Trending Movies");
 
   const filtered =
     selectedGenre && selectedGenre._id
@@ -48,9 +50,17 @@ function App() {
   }, []);
 
   return (
-    <main style={{ maxWidth: 1146 }} className="container-fluid mt-5">
-      <Movies pagMovies={pagMovies} movies={pagMovies} genres={genres} />
-    </main>
+    <>
+      <NavBar />
+      <div style={{ maxWidth: 1146 }} className="container-fluid mt-5">
+        <Movies
+          heading={heading}
+          pagMovies={pagMovies}
+          movies={pagMovies}
+          genres={genres}
+        />
+      </div>
+    </>
   );
 }
 
