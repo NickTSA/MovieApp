@@ -12,7 +12,8 @@ function Movie(props) {
         width: 177,
         marginLeft: "20px",
         marginRight: "20px",
-        marginBottom: "30px"
+        marginBottom: "30px",
+        cursor: "pointer"
       }}
     >
       <img style={{ width: 177 }} src={movieImage} alt="movie poster" />

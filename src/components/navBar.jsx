@@ -1,9 +1,15 @@
 import React from "react";
+import "./common/magnifying-glass.svg";
 
 function NavBar() {
+  const magnify = "d-md-none d-lg-none d-xl-block";
+
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div style={{ maxWidth: 1120 }} className="container-fluid">
+        <a className={magnify} href="#">
+          TopFlix
+        </a>
         <a className="mx-sm-auto navbar-brand" href="#">
           TopFlix
         </a>

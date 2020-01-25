@@ -5,6 +5,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utilis/paginate";
 import Movies from "./movies";
 import NavBar from "./navBar";
+import LoadingBar from "./common/loadingBar";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -13,6 +14,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState();
   const [heading, setHeading] = useState("Top Trending Movies");
+  const [isLoading, setIsLoading] = useState(false);
 
   const filtered =
     selectedGenre && selectedGenre._id
@@ -31,6 +33,7 @@ function App() {
   const pagMovies = paginate(filtered, currentPage, pageSize);
 
   useEffect(() => {
+    setIsLoading(true);
     const allGenres = [{ name: "All Genres" }, ...getGenres()];
 
     setGenres(allGenres);
@@ -46,12 +49,16 @@ function App() {
           posterPath: m.poster_path
         }));
       })
-      .then(res => setMovies(res));
+      .then(res => {
+        setMovies(res);
+      })
+      .then(setIsLoading(false));
   }, []);
 
   return (
     <>
       <NavBar />
+      {isLoading ? <LoadingBar /> : null}
       <div style={{ maxWidth: 1146 }} className="container-fluid mt-5">
         <Movies
           heading={heading}

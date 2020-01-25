@@ -5,15 +5,12 @@ import Movie from "./movie";
 function Movies(props) {
   const { movies, genres, pagMovies, heading } = props;
 
-  if (movies.length === 0) return <p>There are no movies in the database.</p>;
-
   return (
     <>
       <h1 className="mb-5" style={{ textAlign: "center" }}>
         {heading}
       </h1>
       <div className="row d-flex justify-content-center">
-        {/* <p>Showing {filtered.length} movies in the database.</p> */}
         {pagMovies.map(movie => (
           <Movie key={movie._id} movie={movie} />
         ))}
