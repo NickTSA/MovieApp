@@ -7,10 +7,10 @@ function Movies(props) {
 
   return (
     <>
-      <h1 className="mb-5" style={{ textAlign: "center" }}>
+      <h1 className="heading mb-5" style={{ textAlign: "center" }}>
         {heading}
       </h1>
-      <div className="row d-flex justify-content-center">
+      <div className="movies">
         {pagMovies.map(movie => (
           <Movie key={movie._id} movie={movie} />
         ))}

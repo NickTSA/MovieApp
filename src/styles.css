@@ -1,0 +1,41 @@
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.movie {
+  width: 177px;
+  margin: 0px 15px 20px 15px;
+  cursor: pointer;
+}
+
+.movie-image {
+  width: 177px;
+}
+
+.overview {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 467px) {
+  .heading {
+    font-size: 1.9rem;
+  }
+  .movie {
+    width: 140px;
+    cursor: pointer;
+    margin: 0px 10px 5px 0px;
+  }
+  .movie-image {
+    width: 140px;
+  }
+
+  .movies {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

@@ -4,10 +4,9 @@ import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./common/pagination";
 import { paginate } from "../utilis/paginate";
 import Movies from "./movies";
-import NavBar from "./navBar";
 import LoadingBar from "./common/loadingBar";
 
-function App() {
+function Index() {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [pageSize] = useState(20);
@@ -57,7 +56,6 @@ function App() {
 
   return (
     <>
-      <NavBar />
       {isLoading ? <LoadingBar /> : null}
       <div style={{ maxWidth: 1146 }} className="container-fluid mt-5">
         <Movies
@@ -71,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default Index;
