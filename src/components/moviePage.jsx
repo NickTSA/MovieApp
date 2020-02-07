@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getMovieData, getTrailer } from "../utilis/Api";
 import Moment from "react-moment";
+import LoadingBar from "./common/loadingBar";
 
 function MoviePage(props) {
   let movieId = props.match.params.id;
@@ -17,12 +18,15 @@ function MoviePage(props) {
 
         return getTrailer(movieId);
       })
-      .then(res => setTrailer(res.results[0].key))
-      .then(setIsLoading(false));
+      .then(res => {
+        setTrailer(res.results[0].key);
+        setIsLoading(false);
+      });
   }, [movieId]);
 
   return (
     <div className="mt-5">
+      {isLoading ? <LoadingBar /> : null}
       <div className="card" style={{ maxWidth: 800 }}>
         <div className="card-header">
           <h2>{movie.title || movie.name || movie.orginal_title}</h2>

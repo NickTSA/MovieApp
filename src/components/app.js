@@ -15,6 +15,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Index} />
             <Route exact path="/Movies/:id" component={MoviePage} />
+            <Route exact path="/Search/:query" component={Index} />
           </Switch>
         </div>
       </>

@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "./search";
 
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div style={{ maxWidth: 1120 }} className="container-fluid">
         <Link to={"/"}>
-          <a className="navbar-brand" href="#">
-            TopFlix
-          </a>
+          <span className="navbar-brand">TopFlix</span>
         </Link>
         <button
           className="navbar-toggler"
@@ -23,15 +22,7 @@ function NavBar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="mx-auto form-inline mr-md-3 my-2 my-lg-2">
-            <input
-              style={{ width: 250 }}
-              className="form-control mr-2"
-              type="search"
-              placeholder="Search Movies"
-              aria-label="Search"
-            />
-          </form>
+          <Search />
         </div>
       </div>
     </nav>

@@ -34,3 +34,11 @@ export async function getTrailer(movieId) {
     .then(res => res.data)
     .catch(err => console.log(err));
 }
+
+export function searchMovie(encodedQuery) {
+  return axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${
+      process.env.REACT_APP_MM_KEY
+    }&language=en-US&query=${encodedQuery}&page=1&include_adult=false`
+  );
+}
