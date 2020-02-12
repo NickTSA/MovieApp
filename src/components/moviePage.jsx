@@ -37,7 +37,7 @@ function MoviePage(props) {
               <iframe
                 className="embed-responsive-item"
                 src={`https://www.youtube.com/embed/${trailer}?rel=0`}
-                allowfullscreen="true"
+                allowFullScreen={true}
                 title="Movie Trailer"
               />
             </div>

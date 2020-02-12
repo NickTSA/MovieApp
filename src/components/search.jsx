@@ -17,7 +17,7 @@ export default function Search(props) {
 
   return (
     <>
-      {movieSearch ? <Redirect to={`/Search/${encodedQuery}`} /> : null}
+      {movieSearch ? <Redirect to={`/${encodedQuery}`} /> : null}
       <form
         className="mx-auto form-inline mr-md-3 my-2 my-lg-2"
         onSubmit={findMovie}
@@ -28,7 +28,6 @@ export default function Search(props) {
           type="search"
           placeholder="Search Movies"
           aria-label="Search"
-          name="userInput"
           value={userInput}
           onChange={onChange}
         />

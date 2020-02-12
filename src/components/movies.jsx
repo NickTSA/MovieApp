@@ -15,6 +15,7 @@ function Movies(props) {
           <Movie key={movie._id} movie={movie} />
         ))}
       </div>
+      {pagMovies.length === 0 ? <h4>No results found.</h4> : null}
     </>
   );
 }

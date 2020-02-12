@@ -12,10 +12,8 @@ function Index(props) {
   const [pageSize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedGenre, setSelectedGenre] = useState();
-  const [heading, setHeading] = useState("Top Trending Movies");
+  const [heading, setHeading] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(null);
-  console.log(props);
 
   const filtered =
     selectedGenre && selectedGenre._id
@@ -34,15 +32,36 @@ function Index(props) {
   const pagMovies = paginate(filtered, currentPage, pageSize);
 
   useEffect(() => {
-    setIsLoading(true);
-    const allGenres = [{ name: "All Genres" }, ...getGenres()];
-
     if (props.match.params.query) {
-      setSearchQuery(props.match.params.query);
-
-      searchMovie(searchQuery).then(res => console.log(res.data));
-    } else {
+      const { query } = props.match.params;
+      console.log("search effect run");
+      setIsLoading(true);
+      const allGenres = [{ name: "All Genres" }, ...getGenres()];
       setGenres(allGenres);
+      setHeading("Search Results");
+      searchMovie(query)
+        .then(res => {
+          return res.results.map(m => ({
+            title: m.title || m.name,
+            _id: m.id,
+            genre: m.genre_ids,
+            numberInStock: 1,
+            dailyRentalRate: 1,
+            publishDate: m.release_date,
+            posterPath: m.poster_path
+          }));
+        })
+        .then(res => {
+          setMovies(res);
+          setIsLoading(false);
+        });
+    }
+    if (!props.match.params.query) {
+      console.log("trending effect run");
+      setIsLoading(true);
+      const allGenres = [{ name: "All Genres" }, ...getGenres()];
+      setGenres(allGenres);
+      setHeading("Top Trending Movies");
       getTrendingMovies()
         .then(res => {
           return res.results.map(m => ({
@@ -60,9 +79,32 @@ function Index(props) {
           setIsLoading(false);
         });
     }
-  }, []);
+  }, [props.match.params]);
 
-  console.log(searchQuery);
+  console.log(props.match.params.query);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const allGenres = [{ name: "All Genres" }, ...getGenres()];
+  //   setGenres(allGenres);
+
+  //     getTrendingMovies()
+  //     .then(res => {
+  //       return res.results.map(m => ({
+  //         title: m.title || m.name,
+  //         _id: m.id,
+  //         genre: m.genre_ids,
+  //         numberInStock: 1,
+  //         dailyRentalRate: 1,
+  //         publishDate: m.release_date,
+  //         posterPath: m.poster_path
+  //       }));
+  //     })
+  //     .then(res => {
+  //       setMovies(res);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
 
   return (
     <>
