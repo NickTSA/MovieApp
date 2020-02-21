@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getMovieData, getTrailer } from "../utilis/Api";
 import Moment from "react-moment";
 import LoadingBar from "./common/loadingBar";
+import videoPlaceholder from "../utilis/videoPlaceholder.png";
 
 function MoviePage(props) {
   let movieId = props.match.params.id;
@@ -19,10 +20,31 @@ function MoviePage(props) {
         return getTrailer(movieId);
       })
       .then(res => {
-        setTrailer(res.results[0].key);
+        if (res.results[0] === undefined) {
+          setTrailer(null);
+        } else {
+          setTrailer(res.results[0].key);
+        }
         setIsLoading(false);
       });
   }, [movieId]);
+
+  const movieTrailer = trailer ? (
+    <div className="embed-responsive embed-responsive-16by9">
+      <iframe
+        className="embed-responsive-item"
+        src={`https://www.youtube.com/embed/${trailer}?rel=0`}
+        allowFullScreen={true}
+        title="Movie Trailer"
+      />
+    </div>
+  ) : (
+    <img
+      className="embed-responsive embed-responsive-16by9"
+      src={videoPlaceholder}
+      alt="movie trailer"
+    />
+  );
 
   return (
     <div className="mt-5">
@@ -32,16 +54,7 @@ function MoviePage(props) {
           <h2>{movie.title || movie.name || movie.orginal_title}</h2>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <div className="embed-responsive embed-responsive-16by9">
-              <iframe
-                className="embed-responsive-item"
-                src={`https://www.youtube.com/embed/${trailer}?rel=0`}
-                allowFullScreen={true}
-                title="Movie Trailer"
-              />
-            </div>
-          </li>
+          <li className="list-group-item">{movieTrailer}</li>
           <li className="list-group-item">
             <span className="overview">Overview : </span>
             <p className="overview-p">

@@ -1,25 +1,27 @@
 import React from "react";
 import { titleLimit } from "../utilis/utilities";
 import { Link } from "react-router-dom";
+import moviePlaceholder from "../utilis/moviePlaceholder.png";
 
 function Movie(props) {
-  let { title, posterPath, _id } = props.movie;
-  const movieImage = "https://image.tmdb.org/t/p/w500/" + posterPath;
+  let { title, poster_path, id } = props.movie;
+  let movieImage = "https://image.tmdb.org/t/p/w500/" + poster_path;
   title = titleLimit(title, 20);
-
-  // let mobile = window.innerWidth < 1000 ? 0.85 : 1;
+  if (poster_path === null) {
+    movieImage = moviePlaceholder;
+  }
 
   return (
-    <Link to={`movies/${_id}`}>
+    <Link to={`movies/${id}`}>
       <div
         className="movie"
-        // style={{
-        //   width: 177,
-        //   marginLeft: 20,
-        //   marginRight: 20,
-        //   marginBottom: 30,
-        //   cursor: "pointer"
-        // }}
+        style={{
+          width: 177,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 30,
+          cursor: "pointer"
+        }}
       >
         <div
           style={{ color: "black", textDecoration: "none" }}
@@ -27,7 +29,7 @@ function Movie(props) {
         >
           <img
             className="movie-image"
-            // style={{ width: 177 }}
+            style={{ width: 177, height: 266 }}
             src={movieImage}
             alt="movie poster"
           />

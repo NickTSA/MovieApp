@@ -1,12 +1,13 @@
 import axios from "axios";
-import { func } from "prop-types";
 
-export async function getTrendingMovies() {
+export async function getTrendingMovies(num) {
+  const page = num ? "&page=" + num : "";
+
   return axios
     .get(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=${
         process.env.REACT_APP_MM_KEY
-      }`
+      }${page}`
     )
     .then(res => res.data)
     .catch(err => console.log(err));
