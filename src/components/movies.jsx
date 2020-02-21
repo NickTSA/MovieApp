@@ -3,12 +3,13 @@ import Movie from "./movie";
 
 function Movies(props) {
   const { movies, heading } = props;
+  console.log(heading);
 
   return (
     <>
-      <h1 className="heading mb-5" style={{ textAlign: "center" }}>
+      <h3 className="heading mb-4" style={{ textAlign: "center" }}>
         {heading}
-      </h1>
+      </h3>
       <div className="movies" style={{ display: "flex" }}>
         {movies.map(movie => (
           <Movie key={movie.id} movie={movie} />

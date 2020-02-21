@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 function PageButtons(props) {
   const { pageChange, activePage, totalPages } = props;
-  const backButon =
-    activePage < totalPages && activePage !== 1 ? "" : " d-none";
+  const backButon = activePage > 1 ? "" : " d-none";
 
-  console.log(activePage);
+  const nextButton = activePage === totalPages ? " d-none" : "";
+
   return (
     <nav aria-label="Page navigation example">
       <ul className="d-flex justify-content-around pagination">
@@ -16,16 +16,16 @@ function PageButtons(props) {
             name="back"
             onClick={e => pageChange(e.target.name)}
           >
-            {"< Back"}
+            {`< Page ${activePage - 1}`}
           </button>
         </li>
         <li className="page-item">
           <button
-            className="page-link"
+            className={"page-link" + nextButton}
             name="next"
             onClick={e => pageChange(e.target.name)}
           >
-            Next >
+            Page {activePage + 1} >
           </button>
         </li>
       </ul>

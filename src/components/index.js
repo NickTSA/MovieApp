@@ -19,8 +19,9 @@ function Index(props) {
       setIsLoading(true);
       const allGenres = [{ name: "All Genres" }, ...getGenres()];
       setGenres(allGenres);
-      setHeading("Search Results");
-      searchMovie(query).then(res => {
+      searchMovie(query, activePage).then(res => {
+        setHeading(res.total_results.toString() + " Movies Found");
+        setTotalPages(res.total_pages);
         setMovies(res.results);
         setIsLoading(false);
       });
@@ -36,7 +37,7 @@ function Index(props) {
         setIsLoading(false);
       });
     }
-  }, [activePage]);
+  }, [activePage, props.match.params]);
 
   const pageChange = btn => {
     if (btn === "next") {

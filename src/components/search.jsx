@@ -17,7 +17,7 @@ export default function Search(props) {
 
   return (
     <>
-      {movieSearch ? <Redirect to={`/${encodedQuery}`} /> : null}
+      {movieSearch ? <Redirect from="/" to={`/${encodedQuery}`} /> : null}
       <form
         className="mx-auto form-inline mr-md-3 my-2 my-lg-2"
         onSubmit={findMovie}

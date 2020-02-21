@@ -6,7 +6,7 @@ import moviePlaceholder from "../utilis/moviePlaceholder.png";
 function Movie(props) {
   let { title, poster_path, id } = props.movie;
   let movieImage = "https://image.tmdb.org/t/p/w500/" + poster_path;
-  title = titleLimit(title, 20);
+  title = titleLimit(title, 29);
   if (poster_path === null) {
     movieImage = moviePlaceholder;
   }
