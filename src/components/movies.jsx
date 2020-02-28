@@ -3,7 +3,6 @@ import Movie from "./movie";
 
 function Movies(props) {
   const { movies, heading } = props;
-  console.log(heading);
 
   return (
     <>

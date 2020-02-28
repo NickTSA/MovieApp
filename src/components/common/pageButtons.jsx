@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function PageButtons(props) {
@@ -7,26 +8,39 @@ function PageButtons(props) {
 
   const nextButton = activePage === totalPages ? " d-none" : "";
 
+  const linkTo = () => {
+    params = useParams();
+    if (params.query) {
+      return `/Search/${params.query}`;
+    } else {
+      return "";
+    }
+  };
+
+  linkTo();
+
   return (
     <nav aria-label="Page navigation example">
       <ul className="d-flex justify-content-around pagination">
         <li className="page-item">
-          <button
+          <Link
+            to={`${linkTo()}/${activePage - 1}`}
             className={"page-link" + backButon}
             name="back"
             onClick={e => pageChange(e.target.name)}
           >
             {`< Page ${activePage - 1}`}
-          </button>
+          </Link>
         </li>
         <li className="page-item">
-          <button
+          <Link
+            to={`${linkTo()}/${activePage + 1}`}
             className={"page-link" + nextButton}
             name="next"
             onClick={e => pageChange(e.target.name)}
           >
             Page {activePage + 1} >
-          </button>
+          </Link>
         </li>
       </ul>
     </nav>

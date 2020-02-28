@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { getTrendingMovies, searchMovie } from "../utilis/Api";
-import { getGenres } from "../services/fakeGenreService";
+import { searchMovie } from "../utilis/Api";
 import Movies from "./movies";
 import LoadingBar from "./common/loadingBar";
 import PageButtons from "./common/pageButtons";
 
-function Index(props) {
+function SearchPage(props) {
   const [movies, setMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
   const [heading, setHeading] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
-    if (!props.match.params.query) {
+    if (props.match.params.query) {
+      const { query } = props.match.params;
       setIsLoading(true);
-      const allGenres = [{ name: "All Genres" }, ...getGenres()];
-      setGenres(allGenres);
-      setHeading("Top Trending Movies");
-      getTrendingMovies(activePage).then(res => {
+      searchMovie(query, activePage).then(res => {
+        setHeading(res.total_results.toString() + " Movies Found");
         setTotalPages(res.total_pages);
         setMovies(res.results);
         setIsLoading(false);
@@ -35,11 +32,10 @@ function Index(props) {
     }
   };
 
-  console.log(movies);
   return (
     <>
       <div style={{ maxWidth: 1146 }} className="container-fluid mt-5">
-        <Movies heading={heading} movies={movies} genres={genres} />
+        <Movies heading={heading} movies={movies} />
         {isLoading ? <LoadingBar /> : null}
         <div>
           <PageButtons
@@ -53,4 +49,4 @@ function Index(props) {
   );
 }
 
-export default Index;
+export default SearchPage;

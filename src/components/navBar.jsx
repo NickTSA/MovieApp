@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div style={{ maxWidth: 1120 }} className="container-fluid">
-        <Link to={"/"}>
+        <Link to={"/1"}>
           <span className="navbar-brand">TopFlix</span>
         </Link>
         <button
