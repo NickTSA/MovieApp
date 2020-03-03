@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getTrendingMovies, searchMovie } from "../utilis/Api";
+import { getTrendingMovies } from "../utilis/Api";
 import { getGenres } from "../services/fakeGenreService";
 import Movies from "./movies";
 import LoadingBar from "./common/loadingBar";
@@ -14,18 +14,17 @@ function Index(props) {
   const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
-    if (!props.match.params.query) {
-      setIsLoading(true);
-      const allGenres = [{ name: "All Genres" }, ...getGenres()];
-      setGenres(allGenres);
-      setHeading("Top Trending Movies");
-      getTrendingMovies(activePage).then(res => {
-        setTotalPages(res.total_pages);
-        setMovies(res.results);
-        setIsLoading(false);
-      });
-    }
-  }, [activePage, props.match.params]);
+    setIsLoading(true);
+    const allGenres = [{ name: "All Genres" }, ...getGenres()];
+    setGenres(allGenres);
+    setHeading("Top Trending Movies");
+    getTrendingMovies(activePage).then(res => {
+      setTotalPages(res.total_pages);
+      setMovies(res.results);
+      setActivePage(Number(props.match.params.page) || 1);
+      setIsLoading(false);
+    });
+  }, [props.match.params, activePage]);
 
   const pageChange = btn => {
     if (btn === "next") {
@@ -35,7 +34,6 @@ function Index(props) {
     }
   };
 
-  console.log(movies);
   return (
     <>
       <div style={{ maxWidth: 1146 }} className="container-fluid mt-5">

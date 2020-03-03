@@ -12,7 +12,7 @@ function Movie(props) {
   }
 
   return (
-    <Link to={`movies/${id}`}>
+    <Link to={`/movies/${id}`}>
       <div
         className="movie"
         style={{
