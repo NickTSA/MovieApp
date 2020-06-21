@@ -1,0 +1,2 @@
+.movies{display:flex;direction:start;flex-wrap:wrap;justify-content:space-between}.movie{margin:0 15px 20px;cursor:pointer}.movie,.movie-image{width:177px}.overview{font-weight:700;font-size:1.2rem}@media (max-width:467px){.heading{font-size:1.9rem}.movie{cursor:pointer;margin:0 10px 5px 0}.movie,.movie-image{width:140px}.movies{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between}}
+/*# sourceMappingURL=main.b185402d.chunk.css.map */
